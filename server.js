@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
@@ -5,8 +6,10 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 app.use(express.json());
-require('dotenv').config();
 
+// ============================================
+// DATABASE CONNECTION
+// ============================================
 const db = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -15,18 +18,6 @@ const db = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
 });
-// ============================================
-// DATABASE CONNECTION
-// ============================================
-const db = mysql.createPool({
-  host: 'localhost',
-  user: 'Gowri',
-  password: 'Gowri',
-  database: 'recipe',
-  waitForConnections: true,
-  connectionLimit: 10,
-});
-
 // ============================================
 // 1. GET ALL RECIPES (with filters)
 // GET /api/recipes
